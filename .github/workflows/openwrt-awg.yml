@@ -1,5 +1,5 @@
-name: Create Release on Tag
-on: [workflow_dispatch]
+name: Create Release
+on: [push]
 
 jobs:
   build:
