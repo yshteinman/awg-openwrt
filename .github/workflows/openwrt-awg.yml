@@ -4,20 +4,14 @@ on: [push]
 jobs:
   build:
     name: "${{ matrix.tag }} - ${{ matrix.build_env.pkgarch}} :: ${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}} build"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         tag: ['v23.05.0', 'v23.05.2']
         build_env:
-          - pkgarch: mipsel_24kc
-            target: ramips
-            subtarget: mt7620
-          - pkgarch: mipsel_24kc
-            target: ramips
-            subtarget: mt7621
-          - pkgarch: arm_cortex-a7
+          - pkgarch: aarch64_cortex-a53
             target: mediatek
-            subtarget: mt7629
+            subtarget: filogic
     steps:
       - uses: actions/checkout@v4
         with:
