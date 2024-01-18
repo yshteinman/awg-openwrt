@@ -4,7 +4,7 @@ on: [push]
 jobs:
   build:
     name: "${{ matrix.tag }} - ${{ matrix.build_env.pkgarch}} :: ${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}} build"
-    runs-on: macOS
+    runs-on: Linux
     strategy:
       matrix:
         tag: ['v23.05.0', 'v23.05.2']
