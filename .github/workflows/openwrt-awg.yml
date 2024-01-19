@@ -7,7 +7,7 @@ jobs:
     runs-on: Linux
     strategy:
       matrix:
-        tag: ['v23.05.0', 'v23.05.2']
+        tag: ['v23.05.2']
         build_env:
           - pkgarch: aarch64_cortex-a53
             target: mediatek
@@ -71,7 +71,7 @@ jobs:
           rm -rf bin/targets/${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}/packages/  || true
 
           cp feeds.conf.default feeds.conf
-          echo "src-git awgopenwrt https://github.com/amnezia-vpn/amneziawg-openwrt.git" >> ./feeds.conf
+          echo "src-git awgopenwrt https://github.com/lolo6oT/awg-openwrt.git" >> ./feeds.conf
 
           ./scripts/feeds update luci
           ./scripts/feeds install -a -p luci
