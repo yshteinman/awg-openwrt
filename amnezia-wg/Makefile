@@ -8,7 +8,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/amnezia-vpn/amnezia-wg/tar.gz/v${PKG_VERSION}?
-PKG_HASH:=81fb720a97f817d7296e67e218c83487d05615d956ae18b41576c4b2d4f35491
+PKG_HASH:=7b5966926dbd0791ce41c4370e350e2ede12a5aaf8ebaa5fdea4079af1f0e820
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
@@ -22,7 +22,7 @@ GO_PKG_LDFLAGS_X:=\
 	main.Build=$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
-include ../../lang/golang/golang-package.mk
+include ../../packages/lang/golang/golang-package.mk
 
 define Package/amnezia-wg
   SECTION:=net
