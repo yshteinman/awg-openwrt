@@ -3,12 +3,12 @@ name: Create Release
 on:
   push:
     tags:
-      - "v0.0.2"
+      - "v0.0.3"
 
 jobs:
   build:
     name: "${{ matrix.tag }} - ${{ matrix.build_env.pkgarch}} :: ${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}} build"
-    runs-on: Linux
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         tag: ['v23.05.2']
