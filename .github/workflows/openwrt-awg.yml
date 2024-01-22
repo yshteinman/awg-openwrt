@@ -52,6 +52,7 @@ jobs:
 
           echo "CONFIG_PACKAGE_kmod-amneziawg=m" >> .config
           echo "CONFIG_PACKAGE_amnezia-wg-tools=y" >> .config
+          echo "CONFIG_PACKAGE_amneziawg-go=y" >> .config
           echo "CONFIG_PACKAGE_luci-app-amneziawg=y" >> .config
 
           echo "CONFIG_PACKAGE_kmod-crypto-lib-chacha20=m" >> .config
@@ -84,6 +85,7 @@ jobs:
 
           echo "CONFIG_PACKAGE_kmod-amneziawg=m" >> .config
           echo "CONFIG_PACKAGE_amnezia-wg-tools=y" >> .config
+          echo "CONFIG_PACKAGE_amneziawg-go=y" >> .config
           echo "CONFIG_PACKAGE_luci-app-amneziawg=y" >> .config
           make defconfig
 
@@ -92,10 +94,10 @@ jobs:
           make -j1 V=sc package/amnezia-wg-tools/{clean,download,prepare}
           make -j1 V=sc package/amnezia-wg-tools/compile
 
-      - name: Build amnezia-wg
+      - name: Build amneziawg-go
         run: |
-          make -j1 V=sc package/amnezia-wg/{clean,download,prepare}
-          make -j1 V=sc package/amnezia-wg/compile
+          make -j1 V=sc package/amneziawg-go/{clean,download,prepare}
+          make -j1 V=sc package/amneziawg-go/compile
 
       - name: Build kmod-amneziawg
         run: |
@@ -113,6 +115,7 @@ jobs:
           mkdir -p awgrelease
           postfix="${tag_name}_${{ matrix.tag }}_${{ matrix.build_env.pkgarch}}_${{ matrix.build_env.target}}_${{ matrix.build_env.subtarget}}"
           cp bin/packages/${{ matrix.build_env.pkgarch }}/awgopenwrt/amnezia-wg-tools_*.ipk awgrelease/amnezia-wg-tools_${postfix}.ipk
+          cp bin/packages/${{ matrix.build_env.pkgarch }}/awgopenwrt/amneziawg-go_*.ipk awgrelease/amneziawg-go_${postfix}.ipk
           cp bin/packages/${{ matrix.build_env.pkgarch }}/awgopenwrt/luci-app-amneziawg_*.ipk awgrelease/luci-app-amneziawg_${postfix}.ipk
           cp bin/targets/${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}/packages/kmod-amneziawg_*.ipk awgrelease/kmod-amneziawg_${postfix}.ipk
 
