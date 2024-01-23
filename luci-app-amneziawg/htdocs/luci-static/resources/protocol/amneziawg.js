@@ -207,48 +207,48 @@ return network.registerProtocol('amneziawg', {
 			return true;
 		};
 
-        // AmneziaWG
+        	// AmneziaWG
 
-        try {
-            s.tab('amneziawg', _('AmneziaWG Settings'), _('Further information about AmneziaWG interfaces and peers at <a href=\'http://amnezia.org\'>amnezia.org</a>.'));
-        }
-        catch(e) {}
+        	try {
+            		s.tab('amneziawg', _('AmneziaWG Settings'), _('Further information about AmneziaWG interfaces and peers at <a href=\'http://amnezia.org\'>amnezia.org</a>.'));
+        	}
+        	catch(e) {}
 
-        o = s.taboption('amneziawg', form.Value, 'awg_jc', _('Jc'), _('Junk packet count.'));
-        o.datatype = 'uinteger';
-        o.optional = true;
+        	o = s.taboption('amneziawg', form.Value, 'awg_jc', _('Jc'), _('Junk packet count.'));
+        	o.datatype = 'uinteger';
+        	o.optional = true;
 
-        o = s.taboption('amneziawg', form.Value, 'awg_jmin', _('Jmin'), _('Junk packet minimum size.'));
-        o.datatype = 'uinteger';
-        o.optional = true;
+        	o = s.taboption('amneziawg', form.Value, 'awg_jmin', _('Jmin'), _('Junk packet minimum size.'));
+        	o.datatype = 'uinteger';
+        	o.optional = true;
 
-        o = s.taboption('amneziawg', form.Value, 'awg_jmax', _('Jmax'), _('Junk packet maximum size.'));
-        o.datatype = 'uinteger';
-        o.optional = true;
+        	o = s.taboption('amneziawg', form.Value, 'awg_jmax', _('Jmax'), _('Junk packet maximum size.'));
+        	o.datatype = 'uinteger';
+        	o.optional = true;
 
-        o = s.taboption('amneziawg', form.Value, 'awg_s1', _('S1'), _('Handshake initiation packet junk header size.'));
-        o.datatype = 'uinteger';
-        o.optional = true;
+        	o = s.taboption('amneziawg', form.Value, 'awg_s1', _('S1'), _('Handshake initiation packet junk header size.'));
+        	o.datatype = 'uinteger';
+        	o.optional = true;
 
-        o = s.taboption('amneziawg', form.Value, 'awg_s2', _('S2'), _('Handshake response packet junk header size.'));
-        o.datatype = 'uinteger';
-        o.optional = true;
+        	o = s.taboption('amneziawg', form.Value, 'awg_s2', _('S2'), _('Handshake response packet junk header size.'));
+        	o.datatype = 'uinteger';
+        	o.optional = true;
 
-        o = s.taboption('amneziawg', form.Value, 'awg_h1', _('H1'), _('Handshake initiation packet type header.'));
-        o.datatype = 'uinteger';
-        o.optional = true;
+        	o = s.taboption('amneziawg', form.Value, 'awg_h1', _('H1'), _('Handshake initiation packet type header.'));
+        	o.datatype = 'uinteger';
+        	o.optional = true;
 
-        o = s.taboption('amneziawg', form.Value, 'awg_h2', _('H2'), _('Handshake response packet type header.'));
-        o.datatype = 'uinteger';
-        o.optional = true;
+        	o = s.taboption('amneziawg', form.Value, 'awg_h2', _('H2'), _('Handshake response packet type header.'));
+        	o.datatype = 'uinteger';
+        	o.optional = true;
 
-        o = s.taboption('amneziawg', form.Value, 'awg_h3', _('H3'), _('Handshake cookie packet type header.'));
-        o.datatype = 'uinteger';
-        o.optional = true;
+        	o = s.taboption('amneziawg', form.Value, 'awg_h3', _('H3'), _('Handshake cookie packet type header.'));
+        	o.datatype = 'uinteger';
+        	o.optional = true;
 
-        o = s.taboption('amneziawg', form.Value, 'awg_h4', _('H4'), _('Transport packet type header.'));
-        o.datatype = 'uinteger';
-        o.optional = true;
+        	o = s.taboption('amneziawg', form.Value, 'awg_h4', _('H4'), _('Transport packet type header.'));
+        	o.datatype = 'uinteger';
+        	o.optional = true;
 
 		// -- peers -----------------------------------------------------------------------
 
@@ -260,7 +260,7 @@ return network.registerProtocol('amneziawg', {
 		o = s.taboption('peers', form.SectionValue, '_peers', form.GridSection, 'amneziawg_%s'.format(s.section));
 		o.depends('proto', 'amneziawg');
 
-        ss = o.subsection;
+        	ss = o.subsection;
 		ss.anonymous = true;
 		ss.addremove = true;
 		ss.addbtntitle = _('Add peer');
@@ -385,7 +385,7 @@ return network.registerProtocol('amneziawg', {
 			    cancel = nodes.nextElementSibling.querySelector('.btn'),
 			    config = this.parseConfig(input);
 
-            console.log(input);
+            	#console.log(input);
 
 			if (typeof(config) == 'string') {
 				error.firstChild.data = _('Cannot parse configuration: %s').format(config);
