@@ -57,14 +57,17 @@ jobs:
 
           wget https://downloads.openwrt.org/releases/23.05.2/targets/mediatek/filogic/config.buildinfo -O .config
 
+          make defconfig
+
           echo "CONFIG_PACKAGE_kmod-amneziawg=m" >> .config
           echo "CONFIG_PACKAGE_amneziawg-tools=y" >> .config
           echo "CONFIG_PACKAGE_luci-app-amneziawg=y" >> .config
           echo "CONFIG_PACKAGE_amneziawg-go=y" >> .config
 
           make defconfig
-          make -j $(($(nproc)+1)) download V=s
-          make -j $(($(nproc)+1)) V=s
+
+          make -j $(($(nproc)+1)) download V=sc
+          make -j $(($(nproc)+1)) V=sc
 
           make -j $(($(nproc)+1)) package/amnezia-wg-tools/{clean,download,prepare,compile}
           make -j $(($(nproc)+1)) package/amneziawg-go/{clean,download,prepare,compile}
