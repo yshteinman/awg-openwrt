@@ -42,7 +42,8 @@ jobs:
           pkgarch=${{ matrix.build_env.pkgarch}}
           target=${{ matrix.build_env.target}}
           subtarget=${{ matrix.build_env.subtarget}}
-
+          
+          export FORCE_UNSAFE_CONFIGURE=1
           echo "pkgarch: ${pkgarch}, target: ${target}, subtarget: ${subtarget}"
 
           #echo "    > make tools/install"
@@ -68,9 +69,9 @@ jobs:
           #echo "CONFIG_PACKAGE_amnezia-wg-tools=y" >> .config
           #echo "CONFIG_PACKAGE_amneziawg-go=y" >> .config
           #echo "CONFIG_PACKAGE_luci-app-amneziawg=y" >> .config
-          make defconfig
-          make -j $(($(nproc)+1)) download
-          make -j $(($(nproc)+1))
+          make defconfig V=sc
+          make -j $(($(nproc)+1)) download V=sc
+          make -j $(($(nproc)+1)) V=sc
 
           make -j `nproc` package/amnezia-wg-tools/{clean,download,prepare,compile}
           make -j `nproc` package/amneziawg-go/{clean,download,prepare,compile}
