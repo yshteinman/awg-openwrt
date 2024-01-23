@@ -745,7 +745,7 @@ return network.registerProtocol('amneziawg', {
 
 		o.modalonly = true;
 
-		o.createPeerConfig = function(section_id, endpoint, ips) {
+		o.createPeerConfig = function(section_id, endpoint, ips, eips, dns) {
 			var pub = s.formvalue(s.section, 'public_key'),
 			    port = s.formvalue(s.section, 'listen_port') || '51820',
 			    prv = this.section.formvalue(section_id, 'private_key'),
