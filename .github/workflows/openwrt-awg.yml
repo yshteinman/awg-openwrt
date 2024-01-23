@@ -70,8 +70,8 @@ jobs:
           #echo "CONFIG_PACKAGE_amneziawg-go=y" >> .config
           #echo "CONFIG_PACKAGE_luci-app-amneziawg=y" >> .config
           make defconfig V=sc
-          make -j $(($(nproc)+1)) download V=sc
-          make -j $(($(nproc)+1)) V=sc
+          make -j $(($(nproc)+1)) download
+          make -j $(($(nproc)+1))
 
           make -j `nproc` package/amnezia-wg-tools/{clean,download,prepare,compile}
           make -j `nproc` package/amneziawg-go/{clean,download,prepare,compile}
