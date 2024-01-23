@@ -67,13 +67,13 @@ jobs:
 
           make defconfig
 
-          make -j $(($(nproc)+1)) download V=sc
-          make -j $(($(nproc)+1)) V=sc
+          make -j $(nproc) download V=sc
+          make -j $(nproc) V=sc
 
-          make -j $(($(nproc)+1)) package/amnezia-wg-tools/{clean,download,prepare,compile}
-          make -j $(($(nproc)+1)) package/amneziawg-go/{clean,download,prepare,compile}
-          make -j $(($(nproc)+1)) package/kmod-amneziawg/{clean,download,prepare,compile}
-          make -j $(($(nproc)+1)) package/luci-app-amneziawg/{clean,download,prepare,compile}
+          make -j $(nproc) package/amnezia-wg-tools/{clean,download,prepare,compile}
+          make -j $(nproc) package/amneziawg-go/{clean,download,prepare,compile}
+          make -j $(nproc) package/kmod-amneziawg/{clean,download,prepare,compile}
+          make -j $(nproc) package/luci-app-amneziawg/{clean,download,prepare,compile}
 
       - name: Prepare artifacts
         run: |
