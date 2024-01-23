@@ -45,11 +45,12 @@ jobs:
 
           echo "pkgarch: ${pkgarch}, target: ${target}, subtarget: ${subtarget}"
 
-          echo "CONFIG_TARGET_${target}=y" > .config
-          echo "CONFIG_TARGET_${target}_${subtarget}=y" >> .config
-          echo "CONFIG_DEFAULT_TARGET_${target}_${subtarget}=y" >> .config
-          echo "CONFIG_ALL_KMODS=y" >> .config
+          #echo "CONFIG_TARGET_${target}=y" > .config
+          #echo "CONFIG_TARGET_${target}_${subtarget}=y" >> .config
+          #echo "CONFIG_DEFAULT_TARGET_${target}_${subtarget}=y" >> .config
+          #echo "CONFIG_ALL_KMODS=y" >> .config
 
+          wget -O https://downloads.openwrt.org/releases/23.05.2/targets/mediatek/filogic/config.buildinfo .config
           echo "CONFIG_PACKAGE_kmod-amneziawg=m" >> .config
           echo "CONFIG_PACKAGE_amnezia-wg-tools=y" >> .config
           echo "CONFIG_PACKAGE_amneziawg-go=y" >> .config
@@ -80,8 +81,8 @@ jobs:
 
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-          ./scripts/feeds update awgopenwrt
-          ./scripts/feeds install -a -p awgopenwrt
+          #./scripts/feeds update awgopenwrt
+          #./scripts/feeds install -a -p awgopenwrt
 
           echo "CONFIG_PACKAGE_kmod-amneziawg=m" >> .config
           echo "CONFIG_PACKAGE_amnezia-wg-tools=y" >> .config
