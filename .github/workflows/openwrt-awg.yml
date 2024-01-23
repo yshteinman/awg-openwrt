@@ -50,7 +50,7 @@ jobs:
           #echo "CONFIG_DEFAULT_TARGET_${target}_${subtarget}=y" >> .config
           #echo "CONFIG_ALL_KMODS=y" >> .config
 
-          wget -O https://downloads.openwrt.org/releases/23.05.2/targets/mediatek/filogic/config.buildinfo .config
+          wget https://downloads.openwrt.org/releases/23.05.2/targets/mediatek/filogic/config.buildinfo -O .config
           echo "CONFIG_PACKAGE_kmod-amneziawg=m" >> .config
           echo "CONFIG_PACKAGE_amnezia-wg-tools=y" >> .config
           echo "CONFIG_PACKAGE_amneziawg-go=y" >> .config
