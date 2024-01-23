@@ -67,8 +67,8 @@ jobs:
 
           make defconfig
 
-          make -j $(nproc) download V=sc
-          make -j $(nproc) V=sc
+          make -j $(nproc) download
+          make -j $(nproc)
 
           make -j $(nproc) package/amnezia-wg-tools/{clean,download,prepare,compile}
           make -j $(nproc) package/amneziawg-go/{clean,download,prepare,compile}
