@@ -3,7 +3,7 @@ name: Create Release
 on:
   push:
     tags:
-      - "v0.0.4"
+      - "v0.0.5"
       
 jobs:
   build:
@@ -51,14 +51,14 @@ jobs:
           #echo "CONFIG_ALL_KMODS=y" >> .config
 
           wget https://downloads.openwrt.org/releases/23.05.2/targets/mediatek/filogic/config.buildinfo -O .config
-          echo "CONFIG_PACKAGE_kmod-amneziawg=m" >> .config
-          echo "CONFIG_PACKAGE_amnezia-wg-tools=y" >> .config
-          echo "CONFIG_PACKAGE_amneziawg-go=y" >> .config
-          echo "CONFIG_PACKAGE_luci-app-amneziawg=y" >> .config
+          #echo "CONFIG_PACKAGE_kmod-amneziawg=m" >> .config
+          #echo "CONFIG_PACKAGE_amnezia-wg-tools=y" >> .config
+          #echo "CONFIG_PACKAGE_amneziawg-go=y" >> .config
+          #echo "CONFIG_PACKAGE_luci-app-amneziawg=y" >> .config
 
-          echo "CONFIG_PACKAGE_kmod-crypto-lib-chacha20=m" >> .config
-          echo "CONFIG_PACKAGE_kmod-crypto-lib-chacha20poly1305=m" >> .config
-          echo "CONFIG_PACKAGE_kmod-crypto-chacha20poly1305=m" >> .config
+          #echo "CONFIG_PACKAGE_kmod-crypto-lib-chacha20=m" >> .config
+          #echo "CONFIG_PACKAGE_kmod-crypto-lib-chacha20poly1305=m" >> .config
+          #echo "CONFIG_PACKAGE_kmod-crypto-chacha20poly1305=m" >> .config
 
           make defconfig
 
@@ -83,7 +83,9 @@ jobs:
           ./scripts/feeds install -a
           #./scripts/feeds update awgopenwrt
           #./scripts/feeds install -a -p awgopenwrt
-
+          
+          wget https://downloads.openwrt.org/releases/23.05.2/targets/mediatek/filogic/config.buildinfo -O .config
+          
           echo "CONFIG_PACKAGE_kmod-amneziawg=m" >> .config
           echo "CONFIG_PACKAGE_amnezia-wg-tools=y" >> .config
           echo "CONFIG_PACKAGE_amneziawg-go=y" >> .config
@@ -92,23 +94,23 @@ jobs:
 
       - name: Build amnezia-wg-tools
         run: |
-          make -j1 V=sc package/amnezia-wg-tools/{clean,download,prepare}
-          make -j1 V=sc package/amnezia-wg-tools/compile
+          make -j `nproc` package/amnezia-wg-tools/{clean,download,prepare}
+          make -j `nproc` package/amnezia-wg-tools/compile
 
       - name: Build amneziawg-go
         run: |
-          make -j1 V=sc package/amneziawg-go/{clean,download,prepare}
-          make -j1 V=sc package/amneziawg-go/compile
+          make -j `nproc` package/amneziawg-go/{clean,download,prepare}
+          make -j `nproc` package/amneziawg-go/compile
 
       - name: Build kmod-amneziawg
         run: |
-          make -j1 V=sc package/kmod-amneziawg/{clean,download,prepare}
-          make -j1 V=sc package/kmod-amneziawg/compile
+          make -j `nproc` package/kmod-amneziawg/{clean,download,prepare}
+          make -j `nproc` package/kmod-amneziawg/compile
 
       - name: Build luci
         run: |
-          make -j1 V=sc package/luci-app-amneziawg/{clean,download,prepare}
-          make -j1 V=sc package/luci-app-amneziawg/compile
+          make -j `nproc` package/luci-app-amneziawg/{clean,download,prepare}
+          make -j `nproc` package/luci-app-amneziawg/compile
 
       - name: Prepare artifacts
         run: |
