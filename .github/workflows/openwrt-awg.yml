@@ -46,14 +46,6 @@ jobs:
           export FORCE_UNSAFE_CONFIGURE=1
           echo "pkgarch: ${pkgarch}, target: ${target}, subtarget: ${subtarget}"
 
-          #echo "    > make tools/install"
-          #make tools/install -i -j `nproc`
-          #echo "    > make toolchain/install"
-          #make toolchain/install  -i -j `nproc`
-          # compile kernel module
-          #echo "    > make target/linux/compile"
-          #make target/linux/compile  -i -j `nproc` V=s
-          
           rm -rf bin/packages/${{ matrix.build_env.pkgarch }}/awgopenwrt/ || true
           rm -rf bin/targets/${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}/packages/  || true
 
@@ -65,13 +57,9 @@ jobs:
 
           wget https://downloads.openwrt.org/releases/23.05.2/targets/mediatek/filogic/config.buildinfo -O .config
 
-          #echo "CONFIG_PACKAGE_kmod-amneziawg=y" >> .config
-          #echo "CONFIG_PACKAGE_amnezia-wg-tools=y" >> .config
-          #echo "CONFIG_PACKAGE_amneziawg-go=y" >> .config
-          #echo "CONFIG_PACKAGE_luci-app-amneziawg=y" >> .config
           make defconfig
-          make -j $(($(nproc)+1)) download
-          make -j $(($(nproc)+1))
+          make -j $(($(nproc)+1)) download V=s
+          make -j $(($(nproc)+1)) V=s
 
           make -j $(($(nproc)+1)) package/amnezia-wg-tools/{clean,download,prepare,compile}
           make -j $(($(nproc)+1)) package/amneziawg-go/{clean,download,prepare,compile}
