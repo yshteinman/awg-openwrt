@@ -36,7 +36,7 @@ jobs:
           rm -rf bin/packages/${pkgarch}/awgopenwrt/ || true
           rm -rf bin/targets/${target}/${subtarget}/packages/  || true
 
-          cp feeds.conf.default feeds.conf
+          cp -rp feeds.conf.default feeds.conf
           echo "src-git awgopenwrt https://github.com/lolo6oT/awg-openwrt.git" >> ./feeds.conf
 
           ./scripts/feeds update -a
