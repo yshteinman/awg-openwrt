@@ -24,7 +24,7 @@ jobs:
           ref: v${{ matrix.tag }}
           fetch-depth: 0
 
-      - name: Update and install feeds for OpenWRT_v${{ matrix.tag }}
+      - name: Update and install feeds for OpenWRT_v${{ matrix.tag }} ${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}
         run: |
           pkgarch=${{ matrix.build_env.pkgarch}}
           target=${{ matrix.build_env.target}}
@@ -41,11 +41,11 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a          
 
-          wget https://downloads.openwrt.org/releases/${{ matrix.tag }}/targets/mediatek/filogic/config.buildinfo -O .config
+          wget https://downloads.openwrt.org/releases/${{ matrix.tag }}/targets/${target}/${subtarget}/config.buildinfo -O .config
 
           make defconfig
 
-      - name: Make Download and World OpenWRT_v${{ matrix.tag }}
+      - name: Make Download and World OpenWRT_v${{ matrix.tag }} ${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}
         run: |
           export FORCE_UNSAFE_CONFIGURE=1
           echo "CONFIG_PACKAGE_kmod-amneziawg=m" >> .config
@@ -57,14 +57,14 @@ jobs:
 
           make -j $(nproc) download world
 
-      - name: Make ipks amnezia_${{ github.ref_name }} for original OpenWRT_v${{ matrix.tag }}
+      - name: Make ipks amnezia_${{ github.ref_name }} for original OpenWRT_v${{ matrix.tag }} ${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}
         run: |
           make -j $(nproc) package/amnezia-wg-tools/{clean,download,prepare,compile}
           make -j $(nproc) package/amneziawg-go/{clean,download,prepare,compile}
           make -j $(nproc) package/kmod-amneziawg/{clean,download,prepare,compile}
           make -j $(nproc) package/luci-app-amneziawg/{clean,download,prepare,compile}
 
-      - name: Prepare artifacts OpenWRT_v${{ matrix.tag }}
+      - name: Prepare artifacts OpenWRT_v${{ matrix.tag }} ${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}
         run: |
           tag_name=${{ github.ref_name }}
           mkdir -p awgrelease
