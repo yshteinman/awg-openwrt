@@ -44,8 +44,8 @@ endef
 
 define Package/amneziawg-go/install
 	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/amnezia-wg $(1)/usr/sbin/
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/amnezia-wg $(1)/usr/bin/amneziawg-go
 endef
 
 $(eval $(call GoBinPackage,amneziawg-go))
