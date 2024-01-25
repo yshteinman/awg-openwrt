@@ -27,7 +27,7 @@ include ../../packages/lang/golang/golang-package.mk
 define Package/amneziawg-go
   SECTION:=net
   CATEGORY:=Network
-  TITLE:=amnezia-wg
+  TITLE:=amneziawg-go
   DEPENDS:=$(GO_ARCH_DEPENDS)
 endef
 
@@ -48,5 +48,4 @@ define Package/amneziawg-go/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/amnezia-wg $(1)/usr/bin/amneziawg-go
 endef
 
-$(eval $(call GoBinPackage,amneziawg-go))
 $(eval $(call BuildPackage,amneziawg-go))
