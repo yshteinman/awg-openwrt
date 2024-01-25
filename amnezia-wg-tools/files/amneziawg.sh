@@ -245,7 +245,7 @@ proto_amneziawg_setup() {
 		echo "H4 = ${awg_h4}" >> "${wg_cfg}"
 	fi
 
-	config_foreach proto_amneziawg_setup_peer "wireguard_${config}"
+	config_foreach proto_amneziawg_setup_peer "amneziawg_${config}"
 
 	# apply configuration file
 	${WG} setconf ${config} "${wg_cfg}"
