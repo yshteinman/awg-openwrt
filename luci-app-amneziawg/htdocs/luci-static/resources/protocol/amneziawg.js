@@ -253,7 +253,7 @@ return network.registerProtocol('amneziawg', {
 		// -- peers -----------------------------------------------------------------------
 
 		try {
-			s.tab('peers', _('Peers'), _('Further information about AmneziaWG interfaces and peers at <a href=\'http://amneziawg.com\'>amneziawg.com</a>.'));
+			s.tab('peers', _('Peers'), _('Further information about AmneziaWG interfaces and peers at <a href=\'http://amnezia.org\'>amnezia.org</a>.'));
 		}
 		catch(e) {}
 
