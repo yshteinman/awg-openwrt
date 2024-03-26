@@ -59,16 +59,16 @@ jobs:
           echo "Make tools/install"
           make tools/install -i -j $(nproc)
           echo "Make toolchain/install"
-          make toolchain/install  -i -j $(nproc)
+          make toolchain/install -i -j $(nproc)
           echo "Make Kernel Compile"
-          make target/linux/compile  -i -j $(nproc) V=s
+          make target/linux/compile -i -j $(nproc)
 
       - name: Make ipks amnezia_${{ github.ref_name }} for original OpenWRT_v${{ matrix.tag }} ${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}
         run: |
-          make -j $(nproc) package/amnezia-wg-tools/{clean,download,prepare,compile}
-          make -j $(nproc) package/amneziawg-go/{clean,download,prepare,compile}
-          make -j $(nproc) package/kmod-amneziawg/{clean,download,prepare,compile}
-          make -j $(nproc) package/luci-app-amneziawg/{clean,download,prepare,compile}
+          make -j $(nproc) V=sc package/amnezia-wg-tools/{clean,download,prepare,compile}
+          make -j $(nproc) V=sc package/amneziawg-go/{clean,download,prepare,compile}
+          make -j $(nproc) V=sc package/kmod-amneziawg/{clean,download,prepare,compile}
+          make -j $(nproc) V=sc package/luci-app-amneziawg/{clean,download,prepare,compile}
 
       - name: Prepare artifacts OpenWRT_v${{ matrix.tag }} ${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}
         run: |
