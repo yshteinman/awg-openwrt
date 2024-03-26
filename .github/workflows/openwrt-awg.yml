@@ -55,7 +55,13 @@ jobs:
 
           make defconfig
 
-          make -j $(nproc) V=sc download world
+          #make -j $(nproc) V=sc download world
+          echo "Make tools/install"
+          make tools/install -i -j $(nproc)
+          echo "Make toolchain/install"
+          make toolchain/install  -i -j $(nproc)
+          echo "Make Kernel Compile"
+          make target/linux/compile  -i -j $(nproc) V=s
 
       - name: Make ipks amnezia_${{ github.ref_name }} for original OpenWRT_v${{ matrix.tag }} ${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}
         run: |
