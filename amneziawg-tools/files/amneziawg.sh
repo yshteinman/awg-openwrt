@@ -135,7 +135,7 @@ ensure_key_is_generated() {
 	local private_key
 	private_key="$(uci get network."$1".private_key)"
 
-	if [ "$private_key" = "generate" ]; then
+	if [ "$private_key" == "generate" ]; then
 		local ucitmp
 		oldmask="$(umask)"
 		umask 077
