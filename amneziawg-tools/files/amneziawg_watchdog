@@ -11,7 +11,6 @@
 # Run this script from cron every minute:
 # echo '* * * * * /usr/bin/wireguard_watchdog' >> /etc/crontabs/root
 
-
 . /lib/functions.sh
 
 check_peer_activity() {
