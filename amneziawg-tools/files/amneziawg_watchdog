@@ -47,7 +47,7 @@ check_peer_activity() {
   local IPV6_REGEX="\(\([0-9A-Fa-f]\{1,4\}:\)\{1,\}\)\(\([0-9A-Fa-f]\{1,4\}\)\{0,1\}\)\(\(:[0-9A-Fa-f]\{1,4\}\)\{1,\}\)"
   local IPV4="$(echo "${endpoint_host}" | grep -m 1 -o "$IPV4_REGEX$")"    # do not detect ip in 0.0.0.0.example.com
   local IPV6="$(echo "${endpoint_host}" | grep -m 1 -o "$IPV6_REGEX")"
-  [ -n "${IPV4} -o -n ${IPV6}" ] && return 0;
+  [ -n "${IPV4} -o -n "${IPV6}" ] && return 0;
 
   # re-resolve endpoint hostname if not responding for too long
   last_handshake=$(awg show "${iface}" latest-handshakes | grep "${public_key}" | awk '{print $2}')
