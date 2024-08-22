@@ -60,6 +60,7 @@ check_peer_activity() {
 
 # query ubus for all active wireguard interfaces
 wg_ifaces=$(ubus -S call network.interface dump | jsonfilter -e '@.interface[@.up=true]' | jsonfilter -a -e '@[@.proto="amneziawg"].interface' | tr "\n" " ")
+eval "${wg_ifaces}"
 
 # check every peer in every active wireguard interface
 config_load network
