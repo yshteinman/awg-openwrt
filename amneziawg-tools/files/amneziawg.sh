@@ -2,8 +2,6 @@
 # Copyright 2016-2017 Dan Luedtke <mail@danrl.com>
 # Licensed to the public under the Apache License 2.0.
 
-# shellcheck disable=SC1091,SC3003,SC3043
-
 WG=/usr/bin/awg
 if [ ! -x $WG ]; then
 	logger -t "amneziawg" "error: missing amneziawg-tools (${WG})"
@@ -30,9 +28,7 @@ proto_amneziawg_init_config() {
 	proto_config_add_int "awg_h2"
 	proto_config_add_int "awg_h3"
 	proto_config_add_int "awg_h4"
-# shellcheck disable=SC2034
 	available=1
-# shellcheck disable=SC2034
 	no_proto_task=1
 }
 
