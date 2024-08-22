@@ -1196,10 +1196,18 @@ return network.registerProtocol("amneziawg", {
 
 		o.modalonly = true;
 
-		o.createPeerConfig = function (section_id, endpoint, ips) {
+		o.createPeerConfig = function (section_id, endpoint, ips, eips, dns) {
 			var pub = s.formvalue(s.section, "public_key"),
 			    port = s.formvalue(s.section, "listen_port") || "51820",
-			    jc = s.formvalue,
+			    jc = s.formvalue(s.section, "awg_jc") || "2",
+			    jmin = s.formvalue(s.section, "awg_jmin") || "1",
+			    jmax = s.formvalue(s.section, "awg_jmax") || "1000",
+			    s1 = s.formvalue(s.section, "awg_s1") || "0",
+			    s2 = s.formvalue(s.section, "awg_s2") || "0",
+			    h1 = s.formvalue(s.section, "awg_h1") || "1",
+			    h2 = s.formvalue(s.section, "awg_h2") || "2",
+			    h3 = s.formvalue(s.section, "awg_h3") || "3",
+			    h4 = s.formvalue(s.section, "awg_h4") || "4",
 			    prv = this.section.formvalue(section_id, "private_key"),
 			    psk = this.section.formvalue(section_id, "preshared_key"),
 			    eport = this.section.formvalue(section_id, "endpoint_port"),
@@ -1213,7 +1221,18 @@ return network.registerProtocol("amneziawg", {
 			return [
 				"[Interface]",
 				"PrivateKey = " + prv,
+				eips && eips.length ? "Address = " + eips.join(", ") : "# Address not defined",
 				eport ? "ListenPort = " + eport : "# ListenPort not defined",
+				dns && dns.length ? "DNS = " + dns.join(", ") : "# DNS not defined",
+				"Jc = " + jc,
+				"Jmin = " + jmin,
+				"Jmax = " + jmax,
+				"S1 = " + s1,
+				"S2 = " + s2,
+				"H1 = " + h1,
+				"H2 = " + h2,
+				"H3 = " + h3,
+				"H4 = " + h4,
 				"",
 				"[Peer]",
 				"PublicKey = " + pub,
