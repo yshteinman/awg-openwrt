@@ -298,7 +298,7 @@ return network.registerProtocol("amneziawg", {
 			return true;
 		};
 
-		// AmneziaWG
+		// AmneziaWG Settings
 
 		try {
 			s.tab(
