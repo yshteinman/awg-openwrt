@@ -11,8 +11,6 @@
 # Run this script from cron every minute:
 # echo '* * * * * /usr/bin/wireguard_watchdog' >> /etc/crontabs/root
 
-# shellcheck disable=SC1091,SC3043
-
 . /lib/functions.sh
 
 check_peer_activity() {
