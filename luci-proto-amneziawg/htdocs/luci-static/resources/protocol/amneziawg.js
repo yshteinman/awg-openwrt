@@ -1191,23 +1191,19 @@ return network.registerProtocol("amneziawg", {
 		o.datatype = "range(0,65535)";
 		o.placeholder = "0";
 
-		o = ss.option(
-			form.DummyValue,
-			"_keyops",
-			_("Configuration Export"),
-			_("Generates a configuration suitable for import on a AmneziaWG peer")
-		);
+		o = ss.option(form.DummyValue,"_keyops",_("Configuration Export"),
+			_("Generates a configuration suitable for import on a AmneziaWG peer"));
 
 		o.modalonly = true;
 
 		o.createPeerConfig = function (section_id, endpoint, ips) {
 			var pub = s.formvalue(s.section, "public_key"),
-				port = s.formvalue(s.section, "listen_port") || "51820",
-				jc = s.formvalue;
-			(prv = this.section.formvalue(section_id, "private_key")),
-				(psk = this.section.formvalue(section_id, "preshared_key")),
-				(eport = this.section.formvalue(section_id, "endpoint_port")),
-				(keep = this.section.formvalue(section_id, "persistent_keepalive"));
+			    port = s.formvalue(s.section, "listen_port") || "51820",
+			    jc = s.formvalue,
+			    prv = this.section.formvalue(section_id, "private_key"),
+			    psk = this.section.formvalue(section_id, "preshared_key"),
+			    eport = this.section.formvalue(section_id, "endpoint_port"),
+			    keep = this.section.formvalue(section_id, "persistent_keepalive");
 
 			// If endpoint is IPv6 we must escape it with []
 			if (endpoint.indexOf(":") > 0) {
