@@ -287,8 +287,7 @@ proto_amneziawg_setup() {
 
 	# endpoint dependency
 	if [ "${nohostroute}" != "1" ]; then
-# shellcheck disable=SC2034
-		${WG} show "${config}" endpoints | \
+		awg show "${config}" endpoints | \
 		sed -E 's/\[?([0-9.:a-f]+)\]?:([0-9]+)/\1 \2/' | \
 		while IFS=$'\t ' read -r key address port; do
 			[ -n "${port}" ] || continue
