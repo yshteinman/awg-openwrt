@@ -1321,8 +1321,8 @@ return network.registerProtocol("amneziawg", {
 					var code = this.map.findElement(".qr-code"),
 						conf = this.map.findElement(".client-config"),
 						endpoint = this.section.getUIElement(section_id, "endpoint"),
-						ips = this.section.getUIElement(section_id, "allowed_ips"),
-						eips = this.section.getUIElement(section_id, 'addresses'),
+						ips = this.section.getUIElement(section_id, "allowed_ips");
+						eips = this.section.getUIElement(section_id, 'addresses');
 						dns = this.section.getUIElement(section_id, 'dns_servers');
 
 					if (this.isValid(section_id)) {
