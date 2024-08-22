@@ -1295,7 +1295,7 @@ return network.registerProtocol("amneziawg", {
 				var qrm, qrs, qro;
 
 				qrm = new form.JSONMap(
-					{ config: { endpoint: hostnames[0], allowed_ips: ips, addresses: eips, dns_servers: dns } },
+					{ config: { endpoint: hostnames[0], allowed_ips: ips } },
 					null,
 					_(
 						"The generated configuration can be imported into a AmneziaWG client application to set up a connection towards this device."
