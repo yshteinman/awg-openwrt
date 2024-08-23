@@ -27,7 +27,7 @@ include ../../packages/lang/golang/golang-package.mk
 define Package/amneziawg-go
   SECTION:=net
   CATEGORY:=Network
-  TITLE:=amneziawg-go
+  TITLE:=AmneziaWG-go userspace implementation
   DEPENDS:=$(GO_ARCH_DEPENDS)
 endef
 
