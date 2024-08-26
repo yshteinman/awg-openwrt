@@ -7,8 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_MAINTAINER:=Amnezia Admin <admin@amnezia.org>
-PKG_VERSION:=1.0.0
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_VERSION:=1.0.0-$(AUTORELEASE)
 LUCI_TITLE:=AmneziaWG Web UI
 LUCI_DESCRIPTION:=Provides Web UI for AmneziaWG
 LUCI_DEPENDS:=+luci-base +amneziawg-tools +ucode
