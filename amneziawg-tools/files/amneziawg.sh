@@ -2,8 +2,6 @@
 # Copyright 2016-2017 Dan Luedtke <mail@danrl.com>
 # Licensed to the public under the Apache License 2.0.
 
-# shellcheck disable=SC1091,SC3003,SC3043
-
 WG=/usr/bin/awg
 if [ ! -x $WG ]; then
 	logger -t "amneziawg" "error: missing amneziawg-tools (${WG})"
@@ -30,9 +28,7 @@ proto_amneziawg_init_config() {
 	proto_config_add_int "awg_h2"
 	proto_config_add_int "awg_h3"
 	proto_config_add_int "awg_h4"
-# shellcheck disable=SC2034
 	available=1
-# shellcheck disable=SC2034
 	no_proto_task=1
 }
 
@@ -139,7 +135,7 @@ ensure_key_is_generated() {
 	local private_key
 	private_key="$(uci get network."$1".private_key)"
 
-	if [ "$private_key" = "generate" ]; then
+	if [ "$private_key" == "generate" ]; then
 		local ucitmp
 		oldmask="$(umask)"
 		umask 077
@@ -201,7 +197,7 @@ proto_amneziawg_setup() {
 
 	if proto_amneziawg_is_kernel_mode; then
 		logger -t "amneziawg" "info: using kernel-space kmod-amneziawg for ${WG}"
-  	ip link del dev "${config}" 2>/dev/null
+  		ip link del dev "${config}" 2>/dev/null
 		ip link add dev "${config}" type amneziawg
 	else
 		logger -t "amneziawg" "info: using user-space amneziawg-go for ${WG}"
@@ -291,8 +287,7 @@ proto_amneziawg_setup() {
 
 	# endpoint dependency
 	if [ "${nohostroute}" != "1" ]; then
-# shellcheck disable=SC2034
-		${WG} show "${config}" endpoints | \
+		awg show "${config}" endpoints | \
 		sed -E 's/\[?([0-9.:a-f]+)\]?:([0-9]+)/\1 \2/' | \
 		while IFS=$'\t ' read -r key address port; do
 			[ -n "${port}" ] || continue
@@ -305,7 +300,6 @@ proto_amneziawg_setup() {
 
 proto_amneziawg_teardown() {
 	local config="$1"
-	proto_amneziawg_check_installed
 	if proto_amneziawg_is_kernel_mode; then
 		ip link del dev "${config}" >/dev/null 2>&1
 	else

@@ -298,7 +298,7 @@ return network.registerProtocol("amneziawg", {
 			return true;
 		};
 
-		// AmneziaWG
+		// AmneziaWG Settings
 
 		try {
 			s.tab(
@@ -1191,23 +1191,27 @@ return network.registerProtocol("amneziawg", {
 		o.datatype = "range(0,65535)";
 		o.placeholder = "0";
 
-		o = ss.option(
-			form.DummyValue,
-			"_keyops",
-			_("Configuration Export"),
-			_("Generates a configuration suitable for import on a AmneziaWG peer")
-		);
+		o = ss.option(form.DummyValue,"_keyops",_("Configuration Export"),
+			_("Generates a configuration suitable for import on a AmneziaWG peer"));
 
 		o.modalonly = true;
 
-		o.createPeerConfig = function (section_id, endpoint, ips) {
+		o.createPeerConfig = function (section_id, endpoint, ips, eips, dns) {
 			var pub = s.formvalue(s.section, "public_key"),
-				port = s.formvalue(s.section, "listen_port") || "51820",
-				jc = s.formvalue;
-			(prv = this.section.formvalue(section_id, "private_key")),
-				(psk = this.section.formvalue(section_id, "preshared_key")),
-				(eport = this.section.formvalue(section_id, "endpoint_port")),
-				(keep = this.section.formvalue(section_id, "persistent_keepalive"));
+			    port = s.formvalue(s.section, "listen_port") || "51820",
+			    jc = s.formvalue(s.section, "awg_jc") || "2",
+			    jmin = s.formvalue(s.section, "awg_jmin") || "1",
+			    jmax = s.formvalue(s.section, "awg_jmax") || "1000",
+			    s1 = s.formvalue(s.section, "awg_s1") || "0",
+			    s2 = s.formvalue(s.section, "awg_s2") || "0",
+			    h1 = s.formvalue(s.section, "awg_h1") || "1",
+			    h2 = s.formvalue(s.section, "awg_h2") || "2",
+			    h3 = s.formvalue(s.section, "awg_h3") || "3",
+			    h4 = s.formvalue(s.section, "awg_h4") || "4",
+			    prv = this.section.formvalue(section_id, "private_key"),
+			    psk = this.section.formvalue(section_id, "preshared_key"),
+			    eport = this.section.formvalue(section_id, "endpoint_port"),
+			    keep = this.section.formvalue(section_id, "persistent_keepalive");
 
 			// If endpoint is IPv6 we must escape it with []
 			if (endpoint.indexOf(":") > 0) {
@@ -1217,7 +1221,18 @@ return network.registerProtocol("amneziawg", {
 			return [
 				"[Interface]",
 				"PrivateKey = " + prv,
+				eips && eips.length ? "Address = " + eips.join(", ") : "# Address not defined",
 				eport ? "ListenPort = " + eport : "# ListenPort not defined",
+				dns && dns.length ? "DNS = " + dns.join(", ") : "# DNS not defined",
+				"Jc = " + jc,
+				"Jmin = " + jmin,
+				"Jmax = " + jmax,
+				"S1 = " + s1,
+				"S2 = " + s2,
+				"H1 = " + h1,
+				"H2 = " + h2,
+				"H3 = " + h3,
+				"H4 = " + h4,
 				"",
 				"[Peer]",
 				"PublicKey = " + pub,
@@ -1238,11 +1253,13 @@ return network.registerProtocol("amneziawg", {
 			var mapNode = ss.getActiveModalMap(),
 				headNode = mapNode.parentNode.querySelector("h4"),
 				configGenerator = this.createPeerConfig.bind(this, section_id),
-				parent = this.map;
+				parent = this.map,
+				    eips = this.section.formvalue(section_id, 'allowed_ips');
 
 			return Promise.all([
 				network.getWANNetworks(),
 				network.getWAN6Networks(),
+				network.getNetwork('lan'),
 				L.resolveDefault(uci.load("ddns")),
 				L.resolveDefault(uci.load("system")),
 				parent.save(null, true),
@@ -1277,10 +1294,20 @@ return network.registerProtocol("amneziawg", {
 
 				var ips = ["0.0.0.0/0", "::/0"];
 
+				var dns = [];
+
+				var lan = data[2];
+				if (lan) {
+					var lanIp = lan.getIPAddr();
+					if (lanIp) {
+						dns.unshift(lanIp)
+					}
+				}
+
 				var qrm, qrs, qro;
 
 				qrm = new form.JSONMap(
-					{ config: { endpoint: hostnames[0], allowed_ips: ips } },
+					{ config: { endpoint: hostnames[0], allowed_ips: ips, addresses: eips, dns_servers: dns } },
 					null,
 					_(
 						"The generated configuration can be imported into a AmneziaWG client application to set up a connection towards this device."
@@ -1294,12 +1321,16 @@ return network.registerProtocol("amneziawg", {
 					var code = this.map.findElement(".qr-code"),
 						conf = this.map.findElement(".client-config"),
 						endpoint = this.section.getUIElement(section_id, "endpoint"),
-						ips = this.section.getUIElement(section_id, "allowed_ips");
+						ips = this.section.getUIElement(section_id, "allowed_ips"),
+					    	eips = this.section.getUIElement(section_id, 'addresses'),
+					    	dns = this.section.getUIElement(section_id, 'dns_servers');
 
 					if (this.isValid(section_id)) {
 						conf.firstChild.data = configGenerator(
 							endpoint.getValue(),
-							ips.getValue()
+							ips.getValue(),
+							eips.getValue(),
+							dns.getValue()
 						);
 						code.style.opacity = ".5";
 
@@ -1336,6 +1367,18 @@ return network.registerProtocol("amneziawg", {
 				});
 				qro.onchange = handleConfigChange;
 
+
+				qro = qrs.option(form.DynamicList, "dns_servers", _("DNS Servers"), _("DNS servers for the remote clients using this tunnel to your openwrt device. Some AmneziaWG clients require this to be set."));
+				qro.datatype = "ipaddr";
+				qro.default = dns;
+				qro.onchange = handleConfigChange;
+
+				qro = qrs.option(form.DynamicList, "addresses", _("Addresses"), _("IP addresses for the peer to use inside the tunnel. Some clients require this setting."));
+				qro.datatype = "ipaddr";
+				qro.default = eips;
+				eips.forEach(function(eip) { qro.value(eip) });
+				qro.onchange = handleConfigChange;
+				
 				qro = qrs.option(form.DummyValue, "output");
 				qro.renderWidget = function () {
 					var peer_config = configGenerator(hostnames[0], ips);
