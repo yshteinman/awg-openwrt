@@ -11,20 +11,20 @@
 var generateKey = rpc.declare({
 	object: "luci.amneziawg",
 	method: "generateKeyPair",
-	expect: { keys: {} },
+	expect: { keys: {} }
 });
 
 var getPublicAndPrivateKeyFromPrivate = rpc.declare({
 	object: "luci.amneziawg",
 	method: "getPublicAndPrivateKeyFromPrivate",
 	params: ["privkey"],
-	expect: { keys: {} },
+	expect: { keys: {} }
 });
 
 var generatePsk = rpc.declare({
 	object: "luci.amneziawg",
 	method: "generatePsk",
-	expect: { psk: "" },
+	expect: { psk: "" }
 });
 
 var qrIcon =
