@@ -175,7 +175,7 @@ return network.registerProtocol("amneziawg", {
 	},
 
 	containsDevice: function (ifname) {
-		return network.getIfnameOf(ifname) == this.getIfname();
+		return (network.getIfnameOf(ifname) == this.getIfname());
 	},
 
 	renderFormOptions: function (s) {
