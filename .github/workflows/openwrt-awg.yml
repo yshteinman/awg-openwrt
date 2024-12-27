@@ -8,11 +8,11 @@ on:
 jobs:
   build:
     name: "v${{ matrix.tag }} - ${{ matrix.build_env.pkgarch}} :: ${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}} build"
-    runs-on: Linux
-    #runs-on: ubuntu-latest
+   # runs-on: Linux
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        tag: ['23.05.5']
+        tag: ['24.10.0-rc4']
         build_env:
           - pkgarch: aarch64_cortex-a53
             target: mediatek
